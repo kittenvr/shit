@@ -17,5 +17,13 @@ if [ -f "$HYPR/hyprland/keybinds.conf" ]; then
   sed -i '/launch_first_available.sh.*Task manager/s/"gnome-system-monitor"/"missioncenter" &/' "$HYPR/hyprland/keybinds.conf"
 fi
 
-# Starship accent.
-[ -f ~/.config/starship.toml ] && sed -i 's/fg:245/fg:#FFAF00/g; s/bg:252/bg:#FFAF00/g; s/bg:255/bg:#FFAF00/g' ~/.config/starship.toml
+# Starship accent: replace all grey powerline colors with orange accent.
+# Covers: bg of pill interiors (bg:252/bg:255), fill dash (fg:245),
+# and pill bracket/pipe foregrounds (fg:252/fg:255).
+[ -f ~/.config/starship.toml ] && sed -i \
+  -e 's/fg:245/fg:#FFAF00/g' \
+  -e 's/bg:252/bg:#FFAF00/g' \
+  -e 's/bg:255/bg:#FFAF00/g' \
+  -e 's/fg:252/fg:#FFAF00/g' \
+  -e 's/fg:255/fg:#FFAF00/g' \
+  ~/.config/starship.toml
