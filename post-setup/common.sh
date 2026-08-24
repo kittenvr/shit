@@ -24,11 +24,20 @@ run_module() {
   bash "$path"
 }
 
-# Copy a tracked script asset into the live scripts dir, mark executable.
+# Copy a tracked script asset into the live hypr scripts dir, mark executable.
 install_hypr_script() {
   local name="$1"
   local src="$POST_SETUP_DIR/hypr-scripts/$name"
   [ -f "$src" ] || { echo "post-setup: missing asset $src" >&2; return 1; }
   mkdir -p "$SCRIPTS_DIR"
   install -m 755 "$src" "$SCRIPTS_DIR/$name"
+}
+
+# Copy a tracked fish function into ~/.config/fish/functions/.
+install_fish_function() {
+  local name="$1"                          # e.g. shd.fish
+  local src="$POST_SETUP_DIR/fish-functions/$name"
+  [ -f "$src" ] || { echo "post-setup: missing fish function $src" >&2; return 1; }
+  mkdir -p "$HOME/.config/fish/functions"
+  install -m 644 "$src" "$HOME/.config/fish/functions/$name"
 }

@@ -36,3 +36,8 @@ fi
 if [ -f "$FISHVARS" ] && ! grep -q '^SETUVAR pure_' "$FISHVARS"; then
   cat "$POST_SETUP_DIR/assets/fish_pure_vars.txt" >> "$FISHVARS"
 fi
+
+# Restore tracked fish functions the installer may have removed from functions/.
+for fn in shd.fish nap.fish; do
+  install_fish_function "$fn"
+done
